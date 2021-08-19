@@ -1,0 +1,29 @@
+﻿@page "/"
+@using BlazorDetectTheme.Services
+@inject BrowserModeService Service
+
+<h1>Hello, world!</h1>
+
+@if (isdarkTheme)
+{
+    <p>Your browser use <b>DARK</b> mode</p>
+}
+else
+{
+    <p>Your browser use <b>LIGHT</b> mode</p>
+}
+
+@code {
+    public bool isdarkTheme;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            isdarkTheme = await Service.IsDarkMode();
+
+            StateHasChanged();
+        }
+    }
+
+}
